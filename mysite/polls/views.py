@@ -3,26 +3,25 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.views import generic
 
 from .models import Question, Choice
 
-def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    template = loader.get_template('polls/index.html')
-    context = {'latest_question_list': latest_question_list}
+class IndexView(generic.ListView):
+    template_name = 'polls/index.html'
+    context_object_name = 'latest_question_list'
 
-    return HttpResponse(template.render(context, request))
-    # or django shortcut for above is
-    # return render(request, 'polls/index.html', context)
+    def get_queryset(self):
+        """Return oublished questions"""
+        return Question.objects.order_by('-pub_date')
 
-def detail(request, question_id):
-    question = get_object_or_404(Question, id=question_id)
-    context = {'question': question}
-    return render(request, 'polls/detail.html', context)
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = 'polls/detail.html'
 
-def results(request, question_id):
-    question = get_object_or_404(Question, id=question_id)
-    return render(request, 'polls/results.html', {'question': question})
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = 'polls/results.html'
 
 def vote(request, question_id):
     question = get_object_or_404(Question, id=question_id)
