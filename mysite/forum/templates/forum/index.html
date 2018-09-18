@@ -1,1 +1,19 @@
 <h1>Hello from forum app index!</h1>
+<h2>Forum posts:</h2>
+<ul>
+    {% for post in all_posts %}
+        <li>{{ post.post_text }}</li>
+    {% endfor %}
+</ul>
+<h2>All users of the forum</h2>
+<ul>
+    {% for person in all_people %}
+        <li>{{ person.first_name }} {{ person.last_name }}</li>
+    {% endfor %}
+</ul>
+
+<form class="" action="{% url 'forum:index' %}" method="post">
+    {% csrf_token %}
+    <input type="text" value="default post text" id='id_of_text_input' name="name_of_text_input">
+    <input type="submit" name="" value="Publish post">
+</form>
