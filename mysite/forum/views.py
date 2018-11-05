@@ -9,7 +9,7 @@ def index_view(request):
     all_people = Autor.objects.all()
     try:
         new_post = Post(post_date=timezone.now(),
-                        post_text=request.POST['name_of_text_input'])
+                        post_text=request.POST['submit_text'])
         new_post.save()
     except:
         print("looks like some unexpected error", sys.exc_info()[0])

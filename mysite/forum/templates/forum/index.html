@@ -8,15 +8,13 @@
         margin: .2em;
     }
     .post_text{
+        height:1.5em;
         background-color: khaki;
     }
     .post_attr {
         width: 20%;
+        height: 1.5em;
         background-color: darkseagreen;
-    }
-
-    .inherit_test {
-        background-color: olive;
     }
 
     .submit_post_text {
@@ -48,36 +46,28 @@
         <td class="post_attr">new post attributes</td>
         <td class="post_text">new post message</td>
     </tr>
+    {% for post in all_posts %}
+    <tr>
+        <td class="post_attr">{{ post.post_date }}</td>
+        <td class="post_text">{{ post.post_text }}</td>
+    </tr>
+    {% endfor %}
 </table>
 
-<form class="post_form" action="index.html" method="post">
+<form class="post_form" action="{% url 'forum:index' %}" method="post">
+    {% csrf_token %}
     <div class="nickname_and_publish">
-        <input class="" type="text" name="" value="your nickname">
+        <input class="" type="text" name="submit_nickname" value="your nickname">
         <input class="" type="submit" name="" value="Publish post">
     </div>
-    <input class="submit_post_text" type="text" name="" value="Post text">
+    <input class="submit_post_text" type="text" name="submit_text" value="Post text">
 </form>
 
 <hr>
 
-<ul>
-    {% for post in all_posts %}
-        <li>{{ post.post_text }}</li>
-    {% endfor %}
-    <li class="post">example post 1</li>
-    <li class="post">example post 2</li>
-</ul>
-
-
 <h2>All users of the forum</h2>
 <ul>
     {% for person in all_people %}
-        <li>{{ person.first_name }} {{ person.last_name }}</li>
+        <li>{{ person.first_name }} {{ person.last_name }} {{ person.nickname }}</li>
     {% endfor %}
 </ul>
-
-<form class="" action="{% url 'forum:index' %}" method="post">
-    {% csrf_token %}
-    <input type="text" value="default post text" id='id_of_text_input' name="name_of_text_input">
-    <input type="submit" name="" value="Publish post">
-</form>

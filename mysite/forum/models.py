@@ -7,7 +7,7 @@ class Autor(models.Model):
 
 class Post(models.Model):
     topic = models.CharField(max_length=50, default='General topic')
-    autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
+    autor = models.ForeignKey(Autor, on_delete=models.CASCADE, default=1)
     post_date = models.DateTimeField()
     post_text = models.TextField()
 
