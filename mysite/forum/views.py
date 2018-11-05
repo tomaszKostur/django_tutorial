@@ -4,6 +4,7 @@ from django.utils import timezone
 from .models import Post, Autor
 
 def index_view(request):
+    ''' View for list of all topics '''
     all_posts = Post.objects.all()
     all_people = Autor.objects.all()
     try:
