@@ -35,10 +35,10 @@ class ResultsView(generic.DetailView):
 
 def vote(request, question_id):
     question = get_object_or_404(Question, id=question_id)
-    print("##################### {}".format(request.POST))
     try:
         selected_choice = question.choice_set.get(id=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
+    except (KeyError, Choice.DoesNotExist) as e:
+        print(e.__dict__)
         # Redisplay question voting form
         return render(request, 'polls/detail.html',
                       {'question': question,

@@ -39,17 +39,18 @@
 
 <table class="post_table">
     <tr class="post">
-        <td class="post_attr">post attributes</td>
-        <td class="post_text">post message</td>
+        <td class="post_attr">Post attributes</td>
+        <td class="post_text">Post message</td>
     </tr>
-    <tr>
-        <td class="post_attr">new post attributes</td>
-        <td class="post_text">new post message</td>
-    </tr>
+
     {% for post in all_posts %}
     <tr>
         <td class="post_attr">{{ post.post_date }}<br>Autor: {{ post.autor.nickname }}<br>Name: {{ post.autor.first_name }} {{ post.autor.last_name }}</td>
         <td class="post_text">{{ post.post_text }}</td>
+        <td><form class="" action="{% url 'forum:index' %}" method="post">
+            {% csrf_token %}
+            <input type="submit" name="delete_{{ post.id }}" value="delete post">
+        </form></td>
     </tr>
     {% endfor %}
 </table>
