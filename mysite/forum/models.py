@@ -3,11 +3,12 @@ from django.db import models
 class Autor(models.Model):
     first_name = models.CharField(max_length=20, default='Unknown')
     last_name = models.CharField(max_length=20, default='Unknown')
-    nickname = models.CharField(max_length=20, default='Guest')
+    nickname = models.CharField(max_length=20, default='Guest',
+                                primary_key=True)
 
 class Post(models.Model):
     topic = models.CharField(max_length=50, default='General topic')
-    autor = models.ForeignKey(Autor, on_delete=models.CASCADE, default=1)
+    autor = models.ForeignKey(Autor, on_delete=models.CASCADE, default='Guest')
     post_date = models.DateTimeField()
     post_text = models.TextField()
 

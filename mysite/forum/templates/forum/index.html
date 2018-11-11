@@ -48,7 +48,7 @@
     </tr>
     {% for post in all_posts %}
     <tr>
-        <td class="post_attr">{{ post.post_date }}</td>
+        <td class="post_attr">{{ post.post_date }}<br>Autor: {{ post.autor.nickname }}<br>Name: {{ post.autor.first_name }} {{ post.autor.last_name }}</td>
         <td class="post_text">{{ post.post_text }}</td>
     </tr>
     {% endfor %}
