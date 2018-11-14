@@ -1,0 +1,76 @@
+<style media="screen">
+    body {
+        background-color: grey;
+    }
+    .post {
+        background-color: olivedrab;
+        padding: .2em;
+        margin: .2em;
+    }
+    .post_text{
+        height:1.5em;
+        background-color: khaki;
+    }
+    .post_attr {
+        width: 20%;
+        height: 1.5em;
+        background-color: darkseagreen;
+    }
+
+    .submit_post_text {
+        width: 100%;
+        height: 4em;
+    }
+
+    .nickname_and_publish {
+        margin: 0.5em;
+    }
+    .nickname_and_publish input[text] {
+        width: 20em;
+    }
+    .nickname_and_publish input[submit] {
+        width: 10em;
+    }
+
+</style>
+
+<h1>Hello from forum app index!</h1>
+<h2>Topic: {{ topic }}</h2>
+
+<table class="post_table">
+    <tr class="post">
+        <td class="post_attr">Post attributes</td>
+        <td class="post_text">Post message</td>
+    </tr>
+
+    {% for post in topic_posts %}
+    <tr>
+        <td class="post_attr">{{ post.post_date }}
+            <br>Autor: {{ post.autor.nickname }}
+            <br>Name: {{ post.autor.first_name }} {{ post.autor.last_name }}</td>
+        <td class="post_text">{{ post.post_text }}</td>
+        <td><form class="" action="{% url 'forum:index' %}" method="post">
+            {% csrf_token %}
+            <input type="submit" name="delete_{{ post.id }}" value="delete post">
+        </form></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<form class="post_form" action="{{topic_name}}" method="post">
+    {% csrf_token %}
+    <div class="nickname_and_publish">
+        <input class="" type="text" name="submit_nickname" value="your nickname">
+        <input class="" type="submit" name="" value="Publish post">
+    </div>
+    <input class="submit_post_text" type="text" name="submit_text" value="Post text">
+</form>
+
+<hr>
+
+<h2>All users of the forum</h2>
+<ul>
+    {% for person in all_people %}
+        <li>{{ person.first_name }} {{ person.last_name }} {{ person.nickname }}</li>
+    {% endfor %}
+</ul>
