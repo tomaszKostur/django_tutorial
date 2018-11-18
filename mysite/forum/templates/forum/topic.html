@@ -57,6 +57,7 @@
     {% endfor %}
 </table>
 
+<!-- I'm not sure if action="{{topic_name}}" is proper solution -->
 <form class="post_form" action="{{topic_name}}" method="post">
     {% csrf_token %}
     <div class="nickname_and_publish">

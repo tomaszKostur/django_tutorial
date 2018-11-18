@@ -2,14 +2,26 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import Post, Autor
 import logging
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger('forum_views')
 
+
 def index_view(request):
+    all_topics = Post.objects.values_list('topic', flat=True)
+
+    try:
+        new_topicname = request.POST['new_topicname']
+    except KeyError:
+        log.debug('KeyError new topic name')
+    else:
+        return HttpResponseRedirect(reverse('forum:topic', args=(new_topicname,)))
+
     return render(request, 'forum/index.html',
-                  context={})
+                  context={'all_topics': all_topics})
 
 def topic_view(request, topic_name):
     ''' View for list of all topics '''

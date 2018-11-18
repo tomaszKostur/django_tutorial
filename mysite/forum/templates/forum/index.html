@@ -1,2 +1,19 @@
+<style media="screen">
+    body {
+        background-color: grey;
+    }
+
+</style>
 
 <h1>Hello from forum app index!</h1>
+<h3>All topics</h3>
+<p>
+    {% for topic in all_topics %}
+    <a href="{% url 'forum:topic' topic %}">{{ topic }}</a><br>
+    {% endfor %}
+</p>
+
+<form class="c_new_topic" action="{% url 'forum:index' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="new_topicname" value="General Topic">
+</form>
